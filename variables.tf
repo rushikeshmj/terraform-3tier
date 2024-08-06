@@ -2,7 +2,7 @@
 variable "ami_id" {
   description = "AMI ID for instances"
   type        = string
-  default     = "ami-0c55b159cbfafe1f0"  # Replace with a suitable AMI for your region
+  default     = "ami-04a81a99f5ec58529"  # Replace with a suitable AMI for your region
 }
 
 variable "instance_type" {
