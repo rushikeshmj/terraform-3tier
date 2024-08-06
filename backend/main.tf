@@ -17,16 +17,32 @@ resource "aws_security_group" "backend_sg" {
   }
 }
 
-resource "aws_instance" "backend" {
-  ami           = var.ami_id
+resource "aws_launch_configuration" "backend_lc" {
+  name          = "backend-lc"
+  image_id      = var.ami_id
   instance_type = var.instance_type
-  security_groups = [aws_security_group.backend_sg.name]
+  security_groups = [aws_security_group.backend_sg.id]
+  key_name = var.key_name
 
-  tags = {
-    Name = "backend-instance"
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
-output "instance_id" {
-  value = aws_instance.backend.id
+resource "aws_autoscaling_group" "backend_asg" {
+  launch_configuration = aws_launch_configuration.backend_lc.id
+  min_size             = 1
+  max_size             = var.backend_desired_capacity
+  desired_capacity     = var.backend_desired_capacity
+  vpc_zone_identifier  = [var.private_subnet_id]
+
+  tag {
+    key                 = "Name"
+    value               = "backend-instance"
+    propagate_at_launch = true
+  }
+}
+
+output "instance_ids" {
+  value = aws_autoscaling_group.backend_asg.instances[*].instance_id
 }
