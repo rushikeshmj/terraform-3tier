@@ -19,10 +19,10 @@ resource "aws_security_group" "backend_sg" {
 
 resource "aws_launch_configuration" "backend_lc" {
   name          = "backend-lc"
-  image_id      = var.ami_id
-  instance_type = var.instance_type
+  image_id      = "var.ami_id"
+  instance_type = "var.instance_type"
   security_groups = [aws_security_group.backend_sg.id]
-  key_name = var.key_name
+  key_name = "var.key_name"
 
   lifecycle {
     create_before_destroy = true
@@ -32,9 +32,9 @@ resource "aws_launch_configuration" "backend_lc" {
 resource "aws_autoscaling_group" "backend_asg" {
   launch_configuration = aws_launch_configuration.backend_lc.id
   min_size             = 1
-  max_size             = var.backend_desired_capacity
-  desired_capacity     = var.backend_desired_capacity
-  vpc_zone_identifier  = [var.private_subnet_id]
+  max_size             = "var.backend_desired_capacity"
+  desired_capacity     = "var.backend_desired_capacity"
+  vpc_zone_identifier  = "[var.private_subnet_id]"
 
   tag {
     key                 = "Name"

@@ -38,6 +38,7 @@ variable "backend_desired_capacity" {
 variable "key_name" {
   description = "Key name for SSH access"
   type        = string
+  default     = "key.pem"
 }
 
 variable "vpc_cidr" {

@@ -21,9 +21,9 @@ resource "aws_db_instance" "example" {
   identifier        = "example-db"
   engine            = "postgres"
   instance_class    = "db.t2.micro"
-  name              = "exampledb"
-  username          = var.db_username
-  password          = var.db_password
+  db_name           = "exampledb"
+  username          = "var.db_username"
+  password          = "var.db_password"
   allocated_storage = 20
 
   vpc_security_group_ids = [aws_security_group.database_sg.id]

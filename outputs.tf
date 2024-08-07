@@ -14,10 +14,10 @@ output "database_endpoint" {
   value       = module.database.endpoint
 }
 
-output "frontend_load_balancer_dns" {
-  description = "DNS name of the frontend load balancer"
-  value       = module.frontend.load_balancer_dns
-}
+# output "frontend_load_balancer_dns" {
+#   description = "DNS name of the frontend load balancer"
+#   value       = module.frontend.load_balancer_dns
+# }
 
 output "vpc_id" {
   description = "ID of the VPC"
